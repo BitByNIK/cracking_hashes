@@ -78,5 +78,5 @@ def main():
         save_time_analysis(cracking_time, time_analysis_file, algorithm)
 
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     main()

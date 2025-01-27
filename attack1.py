@@ -3,7 +3,7 @@ import time
 
 
 class HashCracker:
-    def _init_(self, dictionary_file, target_files):
+    def __init__(self, dictionary_file, target_files):
         self.dictionary_file = dictionary_file
         self.target_files = target_files
         self.dictionary = []
@@ -73,5 +73,5 @@ def main():
     cracker.run()
 
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     main()

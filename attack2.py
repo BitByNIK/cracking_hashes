@@ -3,7 +3,7 @@ import time
 
 
 def load_dictionary(file_path):
-    with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
+    with open(file_path, 'r') as file:
         return [line.strip() for line in file]
 
 
@@ -36,7 +36,7 @@ def crack_salted_hashes(dictionary, salted_hashes, algorithm):
             generated_hash = hash_password(password, salt, algorithm)
             if generated_hash == target_hash:
                 cracked.append((password, salt, target_hash))
-                break
+
     end_time = time.time()
     cracking_time = end_time - start_time
     return cracked, cracking_time
@@ -48,14 +48,8 @@ def save_cracked_passwords(cracked, output_file):
             file.write(f"{password}:{salt}:{hash_val}\n")
 
 
-def save_time_analysis(cracking_time, output_file, algorithm):
-    with open(output_file, 'w') as file:
-        file.write(f"{algorithm.upper()} cracking time: {
-                   cracking_time:.2f} seconds\n")
-
-
 def main():
-    dictionary_file = 'dictionary/xato-net-10-million-passwords.txt'
+    dictionary_file = 'dictionary/dictionary.txt'
     target_files = {
         'md5': 'md5_salted_hashes.txt',
         'sha1': 'sha1_salted_hashes.txt',
@@ -73,9 +67,6 @@ def main():
                                         } salted hashes in {cracking_time:.2f} seconds.")
         output_file = f"salted_cracked_{algorithm}.txt"
         save_cracked_passwords(cracked, output_file)
-
-        time_analysis_file = f"time_analysis_{algorithm}.txt"
-        save_time_analysis(cracking_time, time_analysis_file, algorithm)
 
 
 if __name__ == '__main__':
